@@ -1,0 +1,16 @@
+version: 2
+
+sources:
+  - name: raw
+    database: deel_db
+    schema: raw
+    tables:
+      - name: raw_organizations
+        columns:
+          - name: organization_id
+          - name: first_payment_date
+          - name: last_payment_date
+          - name: legal_entity_country_code
+          - name: count_total_contracts_active
+          - name: created_date
+      - name: raw_invoices

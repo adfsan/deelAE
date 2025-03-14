@@ -1,0 +1,11 @@
+deel_dbt_project:
+  outputs:
+    dev:
+      type: postgres
+      host: localhost
+      user: test_user
+      password: test_password
+      port: 5432
+      dbname: deel_db
+      schema: public
+  target: dev
