@@ -1,15 +1,21 @@
-{{config(
-    materialized='table', schema='staging',
-)}}
+{{
+    config(
+        materialized="table",
+        schema="staging",
+    )
+}}
 
-WITH organizations AS (
-    SELECT
-        ORGANIZATION_ID,
-        FIRST_PAYMENT_DATE::DATE AS FIRST_PAYMENT_DATE,
-        LAST_PAYMENT_DATE::DATE AS LAST_PAYMENT_DATE,
-        LEGAL_ENTITY_COUNTRY_CODE,
-        COUNT_TOTAL_CONTRACTS_ACTIVE::INTEGER AS COUNT_TOTAL_CONTRACTS_ACTIVE,
-        CREATED_DATE::DATE AS CREATED_DATE
-    FROM {{ source('raw', 'raw_organizations') }}
-)
-SELECT * FROM organizations
+with
+    organizations as (
+        select
+            organization_id,
+            first_payment_date::date as first_payment_date,
+            last_payment_date::date as last_payment_date,
+            legal_entity_country_code,
+            count_total_contracts_active::integer as count_total_contracts_active,
+            created_date::date as created_date
+        from {{ source("raw", "raw_organizations") }}
+    )
+
+select *
+from organizations
