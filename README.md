@@ -8,7 +8,7 @@ __Instructions:__
 
 After installing PostgreSQL and ensuring that it is running, create a database by running:
 ```
-psql postgres -f create_db_user.sql 
+psql postgres -f create_db.sql 
 ```
 And a test_user and schemas with:
 ```

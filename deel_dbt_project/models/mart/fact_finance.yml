@@ -1,0 +1,43 @@
+version: 2
+
+models:
+  - name: fact_finance
+    description: "Fact table for financial transactions"
+    tests:
+    - dbt_utils.expression_is_true:
+        expression: "TOTAL_AMOUNT_PAID_USD >= 0"
+    - dbt_utils.expression_is_true:
+        expression: "TOTAL_AMOUNT_REFUNDED_USD >= 0"
+    - dbt_utils.expression_is_true:
+        expression: "TOTAL_AMOUNT_NET_USD = (TOTAL_AMOUNT_PAID_USD - TOTAL_AMOUNT_REFUNDED_USD)"
+    columns:
+      - name: invoice_date_organization_id
+        description: "Primary key for this table"
+        tests:
+          - not_null
+
+      - name: DATE
+        description: "Transaction date"
+        tests:
+          - not_null
+
+      - name: ORGANIZATION_ID
+        description: "Links to dim_organizations"
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_organization')
+              field: ORGANIZATION_ID
+
+      - name: TOTAL_AMOUNT_PAID_USD
+        description: "Revenue should never be negative"
+        tests:
+          - not_null
+
+      - name: TOTAL_AMOUNT_REFUNDED_USD
+        description: "Refunds should never be negative"
+        tests:
+          - not_null
+
+      - name: TOTAL_AMOUNT_NET_USD
+        description: "Net revenue should always be correct"

@@ -1,0 +1,16 @@
+version: 2
+
+models:
+  - name: dim_organization
+    description: "A dimension table for organizations"
+    columns:
+      - name: organization_id
+        description: "The primary key for this table"
+        data_type: int
+        data_tests:
+          - unique
+          - not_null
+      - name: legal_entity_country_code
+        data_type: str
+        data_tests:
+          - not_null
