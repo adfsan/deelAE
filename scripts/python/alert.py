@@ -19,7 +19,7 @@ def alert(lookback_days: int=None, threshold: float = 0.5):
     if df.empty:
         print("No alerts to send")
     else:
-        print("Organizations with a balance change greater than 50%:")
+        print(f"Organizations with a balance change greater than {threshold*100}% for the past {lookback_days} days:")
         print(df[["organization_id", "date", "dod_balance_change_usd_pct"]])
     engine.dispose()
 
